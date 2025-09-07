@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- background decorative orbs -->
+  <!-- decorative orbs -->
   <div class="bg-orb orb-a"></div>
   <div class="bg-orb orb-b"></div>
   <div class="bg-orb orb-c"></div>
@@ -26,7 +26,7 @@
   </header>
 
   <main>
-    <!-- hero -->
+    <!-- HERO -->
     <section class="hero wrap">
       <div class="hero-text">
         <h2>Find help fast or earn extra cash</h2>
@@ -37,8 +37,8 @@
         </div>
       </div>
 
-      <!-- animated svg characters -->
-      <div class="scene">
+      <!-- animated SVG characters -->
+      <div class="scene" aria-hidden="true">
         <svg class="walker babysitter" viewBox="0 0 80 80" width="88" height="88">
           <circle cx="40" cy="20" r="10" class="skin"/>
           <rect x="30" y="30" width="20" height="22" rx="6" class="shirt"/>
@@ -75,22 +75,25 @@
       </div>
     </section>
 
+    <!-- BROWSE -->
     <section id="browse" class="wrap">
       <h2>Browse Jobs</h2>
       <div id="job-list"></div>
     </section>
 
+    <!-- POST -->
     <section id="post" class="wrap">
       <h2>Post a Job</h2>
       <form id="post-form" class="card form">
-        <input name="title" placeholder="Title" required />
+        <input name="title" placeholder="Title (e.g., 'Babysitting tonight')" required />
         <input name="price" type="number" placeholder="Price (ISK)" required />
-        <textarea name="details" placeholder="Details"></textarea>
+        <textarea name="details" placeholder="Details (when, where, how long)"></textarea>
         <div id="form-error" class="error"></div>
         <button class="btn">Post</button>
       </form>
     </section>
 
+    <!-- MY JOBS -->
     <section id="my" class="wrap">
       <h2>My Jobs</h2>
       <ul id="my-jobs" class="list"></ul>
@@ -99,12 +102,13 @@
 
   <footer class="wrap"><small>© Jobby</small></footer>
 
-  <!-- Firebase SDKs -->
+  <!-- Firebase SDKs (compat builds) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
 
+  <!-- Config + site scripts -->
   <script src="firebase-config.js"></script>
   <script src="nav.js"></script>
   <script src="fun.js"></script>
