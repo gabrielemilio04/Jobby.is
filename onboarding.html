@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jobby – Onboarding</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="wrap">
+    <h1>Jobby</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="auth.html" id="nav-login">Login</a>
+      <a href="profile.html" id="nav-profile" style="display:none;">Profile</a>
+      <a href="#" id="nav-logout" style="display:none;">Logout</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <h2>Finish setting up your account</h2>
+
+    <div id="require-auth" class="error" style="display:none;">
+      You must be logged in to complete onboarding. <a href="auth.html">Go to login</a>
+    </div>
+
+    <form id="onboarding-form" style="display:none; max-width:520px;">
+      <label>
+        Name
+        <input type="text" id="ob-name" placeholder="Your full name" required />
+      </label>
+
+      <label style="margin-top:8px; display:block;">
+        Age
+        <input type="number" id="ob-age" min="13" max="120" placeholder="Your age" required />
+      </label>
+
+      <label style="margin-top:8px; display:block;">
+        Phone number
+        <input type="tel" id="ob-phone" placeholder="+354 555 5555" required />
+      </label>
+
+      <fieldset style="margin-top:8px;">
+        <legend>Gender</legend>
+        <label><input type="radio" name="ob-gender" value="male" required /> Male</label>
+        <label style="margin-left:12px;"><input type="radio" name="ob-gender" value="female" required /> Female</label>
+      </fieldset>
+
+      <div style="margin-top:8px;">
+        <label style="display:flex;align-items:flex-start;gap:8px;">
+          <input type="checkbox" id="ob-terms" required />
+          <span>I accept the <a href="terms.html" target="_blank" rel="noopener">Terms of Agreement</a>.</span>
+        </label>
+      </div>
+
+      <button type="submit" style="margin-top:12px;">Save & Continue</button>
+      <div id="ob-status" style="margin-top:10px;"></div>
+    </form>
+  </main>
+
+  <!-- Firebase SDKs (compat builds) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+
+  <!-- Config + nav -->
+  <script src="firebase-config.js"></script>
+  <script src="nav.js"></script>
+
+  <!-- Onboarding logic -->
+  <script src="onboarding.js"></script>
+</body>
+</html>
