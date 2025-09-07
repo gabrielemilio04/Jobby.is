@@ -1,10 +1,18 @@
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyA55U_2UEV45Xt-KgdnYVdEl0vL7JxS4cQ",
-  authDomain: "jobby-4c4b6.firebaseapp.com",
-  projectId: "jobby-4c4b6",
-  storageBucket: "jobby-4c4b6.firebasestorage.app",
-  messagingSenderId: "305693661734",
-  appId: "1:305693661734:web:c70038063fe5908d6de4e7",
-  measurementId: "G-S3T4ZBR9SE"
+// firebase-config.js
+// ⬇️ paste YOUR real config values inside this object
+window.firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
+
+// Initialize (works with compat SDKs)
+if (!firebase.apps || !firebase.apps.length) {
+  firebase.initializeApp(window.firebaseConfig);
+  console.log("[Firebase] Initialized");
+} else {
+  console.log("[Firebase] Already initialized");
+}
