@@ -12,13 +12,11 @@ authNav.onAuthStateChanged((user) => {
   setDisplay("nav-profile", loggedIn);
   setDisplay("nav-logout", loggedIn);
 
-  // attach logout click
   const logout = document.getElementById("nav-logout");
   if (logout) {
     logout.onclick = async (e) => {
       e.preventDefault();
       await authNav.signOut();
-      // optional: go home after logout
       if (!/index\.html$/.test(location.pathname)) location.href = "index.html";
     };
   }
