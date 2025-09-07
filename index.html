@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jobby</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="wrap">
+    <h1>Jobby</h1>
+    <nav>
+      <a href="#browse">Browse Jobs</a>
+      <a href="#post">Post a Job</a>
+      <a href="#my">My Jobs</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section id="browse"><h2>Browse Jobs</h2><div id="job-list"></div></section>
+    <section id="post"><h2>Post a Job</h2>
+      <form id="post-form">
+        <input name="title" placeholder="Title" required />
+        <input name="price" type="number" placeholder="Price (ISK)" required />
+        <textarea name="details" placeholder="Details"></textarea>
+        <button>Post</button>
+      </form>
+    </section>
+    <section id="my"><h2>My Jobs</h2><ul id="my-jobs"></ul></section>
+  </main>
+
+  <footer class="wrap"><small>© Jobby</small></footer>
+  <script src="script.js"></script>
+</body>
+</html>
+
+*{box-sizing:border-box} body{font-family:system-ui,Arial,sans-serif; margin:0; line-height:1.5}
+.wrap{max-width:900px; margin:auto; padding:16px}
+header{display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #eee}
+nav a{margin-left:12px; text-decoration:none}
+section{padding:16px 0; border-bottom:1px solid #f2f2f2}
+input, textarea, button{display:block; width:100%; margin:8px 0; padding:10px}
+#job-list .card{border:1px solid #eee; padding:12px; border-radius:8px; margin:8px 0}
+
+const jobs = [];
+const myJobs = [];
+
+const list = document.getElementById("job-list");
+const mine = document.getElementById("my-jobs");
+const form = document.getElementById("post-form");
+
+function render() {
+  list.innerHTML = jobs.map(j => `
+    <div class="card">
+      <b>${j.title}</b> — ${j.price} ISK
+      <p>${j.details || ""}</p>
+      <button onclick="makeOffer(${j.id})">Make Offer (5% fee)</button>
+    </div>`).join("");
+  mine.innerHTML = myJobs.map(j => `<li>${j.title} — ${j.price} ISK</li>`).join("");
+}
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  const fd = new FormData(form);
+  jobs.push({ id: Date.now(), title: fd.get("title"), price: +fd.get("price"), details: fd.get("details") });
+  myJobs.push(jobs[jobs.length-1]);
+  form.reset();
+  render();
+});
+
+function makeOffer(id){
+  const j = jobs.find(x=>x.id===id);
+  if(!j) return;
+  const fee = Math.round(j.price * 0.05);
+  alert(`Offer sent: ${j.price + fee} ISK (includes 5% fee = ${fee} ISK)`);
+}
+render();
+
