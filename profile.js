@@ -8,6 +8,7 @@ const profileArea = document.getElementById("profile-area");
 const emailEl = document.getElementById("email");
 const uidEl = document.getElementById("uid");
 const nameInput = document.getElementById("displayName");
+const descInput = document.getElementById("description");
 const fileInput = document.getElementById("avatar-file");
 const avatarPreview = document.getElementById("avatar-preview");
 const statusEl = document.getElementById("profile-status");
@@ -34,6 +35,7 @@ auth.onAuthStateChanged(async (user) => {
   const data = snap.exists ? snap.data() : {};
 
   nameInput.value = data.displayName || user.displayName || "";
+  descInput.value = data.description || "";
   avatarPreview.src = data.photoURL || user.photoURL || "https://via.placeholder.com/96?text=Avatar";
   document.getElementById("avgRating").textContent = (data.avgRating ?? "—");
   document.getElementById("ratingCount").textContent = (data.ratingCount ?? 0);
@@ -55,6 +57,7 @@ auth.onAuthStateChanged(async (user) => {
       }
 
       const displayName = nameInput.value.trim();
+      const description = descInput.value.trim();
 
       await user.updateProfile({ displayName, photoURL });
 
@@ -62,6 +65,7 @@ auth.onAuthStateChanged(async (user) => {
         {
           email: user.email,
           displayName,
+          description,
           photoURL: photoURL || null,
           updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           avgRating: data.avgRating ?? 0,
