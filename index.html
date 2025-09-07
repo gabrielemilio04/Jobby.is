@@ -16,63 +16,37 @@
     </nav>
   </header>
 
-  <main class="wrap">
-    <section id="browse"><h2>Browse Jobs</h2><div id="job-list"></div></section>
-    <section id="post"><h2>Post a Job</h2>
+  <main>
+    <section class="hero wrap">
+      <h2>Find help fast or earn extra cash</h2>
+      <p>Post a job and connect with local helpers.</p>
+      <a href="#post" class="btn">Post a Job</a>
+    </section>
+
+    <section id="browse" class="wrap">
+      <h2>Browse Jobs</h2>
+      <div id="job-list"></div>
+    </section>
+
+    <section id="post" class="wrap">
+      <h2>Post a Job</h2>
       <form id="post-form">
         <input name="title" placeholder="Title" required />
         <input name="price" type="number" placeholder="Price (ISK)" required />
         <textarea name="details" placeholder="Details"></textarea>
+        <div id="form-error" class="error"></div>
         <button>Post</button>
       </form>
     </section>
-    <section id="my"><h2>My Jobs</h2><ul id="my-jobs"></ul></section>
+
+    <section id="my" class="wrap">
+      <h2>My Jobs</h2>
+      <ul id="my-jobs"></ul>
+    </section>
   </main>
 
   <footer class="wrap"><small>© Jobby</small></footer>
   <script src="script.js"></script>
 </body>
 </html>
-
-*{box-sizing:border-box} body{font-family:system-ui,Arial,sans-serif; margin:0; line-height:1.5}
-.wrap{max-width:900px; margin:auto; padding:16px}
-header{display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #eee}
-nav a{margin-left:12px; text-decoration:none}
-section{padding:16px 0; border-bottom:1px solid #f2f2f2}
-input, textarea, button{display:block; width:100%; margin:8px 0; padding:10px}
-#job-list .card{border:1px solid #eee; padding:12px; border-radius:8px; margin:8px 0}
-
-const jobs = [];
-const myJobs = [];
-
-const list = document.getElementById("job-list");
-const mine = document.getElementById("my-jobs");
-const form = document.getElementById("post-form");
-
-function render() {
-  list.innerHTML = jobs.map(j => `
-    <div class="card">
-      <b>${j.title}</b> — ${j.price} ISK
-      <p>${j.details || ""}</p>
-      <button onclick="makeOffer(${j.id})">Make Offer (5% fee)</button>
-    </div>`).join("");
-  mine.innerHTML = myJobs.map(j => `<li>${j.title} — ${j.price} ISK</li>`).join("");
-}
-
-form.addEventListener("submit", e => {
-  e.preventDefault();
-  const fd = new FormData(form);
-  jobs.push({ id: Date.now(), title: fd.get("title"), price: +fd.get("price"), details: fd.get("details") });
-  myJobs.push(jobs[jobs.length-1]);
-  form.reset();
-  render();
-});
-
-function makeOffer(id){
-  const j = jobs.find(x=>x.id===id);
-  if(!j) return;
-  const fee = Math.round(j.price * 0.05);
-  alert(`Offer sent: ${j.price + fee} ISK (includes 5% fee = ${fee} ISK)`);
-}
-render();
 

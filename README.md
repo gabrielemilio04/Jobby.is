@@ -1,2 +1,13 @@
-# Jobby.is
-“A simple TaskRabbit-style job marketplace prototype (bilingual EN/IS)”  “Prototype app for connecting people who need small tasks with helpers”  “Jobby – lightweight marketplace for chores, babysitting, moving, and more”
+# Jobby
+
+A simple landing page for posting and browsing small jobs.
+
+## Setup
+
+1. Clone the repository.
+2. Open `index.html` in your browser or serve the folder with a static file server.
+
+## GitHub Pages
+
+The site is available at: `https://<your-username>.github.io/jobby-site/`
+
