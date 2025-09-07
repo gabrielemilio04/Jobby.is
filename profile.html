@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jobby – Profile</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="wrap">
+    <h1>Jobby</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="auth.html" id="nav-login">Login</a>
+      <a href="profile.html" id="nav-profile" style="display:none;">Profile</a>
+      <a href="#" id="nav-logout" style="display:none;">Logout</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <h2>My Profile</h2>
+
+    <div id="require-auth" style="display:none;" class="error">
+      You must be logged in to view this page. <a href="auth.html">Go to login</a>
+    </div>
+
+    <div id="profile-area" style="display:none;">
+      <div style="display:flex;gap:16px;align-items:center;">
+        <img id="avatar-preview" alt="Avatar" style="width:96px;height:96px;border-radius:50%;object-fit:cover;border:1px solid #eee" />
+        <div>
+          <div><b>Email:</b> <span id="email"></span></div>
+          <div><b>User ID:</b> <span id="uid" style="font-size:12px;color:#777;"></span></div>
+          <div><b>Average rating:</b> <span id="avgRating">—</span> (<span id="ratingCount">0</span>)</div>
+        </div>
+      </div>
+
+      <form id="profile-form" style="margin-top:16px;">
+        <label>
+          Display name
+          <input type="text" id="displayName" placeholder="Your name" required />
+        </label>
+
+        <label style="margin-top:8px;display:block;">
+          Profile photo
+          <input type="file" id="avatar-file" accept="image/*" />
+        </label>
+
+        <button type="submit" style="margin-top:12px;">Save profile</button>
+      </form>
+
+      <div id="profile-status" style="margin-top:10px;"></div>
+    </div>
+  </main>
+
+  <!-- Firebase SDKs (compat builds) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+
+  <!-- Config + small nav auth toggler -->
+  <script src="firebase-config.js"></script>
+  <script src="nav.js"></script>
+
+  <!-- Profile logic -->
+  <script src="profile.js"></script>
+</body>
+</html>
