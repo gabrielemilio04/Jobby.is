@@ -1,11 +1,11 @@
 // fun.js — confetti toggle
-(() => {
+(()=> {
   const btn = document.getElementById("fun-toggle");
-  if (!btn) return;
-  let on = false, timer = null;
+  if(!btn) return;
+  let on=false, timer=null;
 
-  function burst() {
-    for (let i=0;i<24;i++){
+  function burst(){
+    for(let i=0;i<24;i++){
       const p=document.createElement("div");
       p.className="confetti";
       p.style.left=Math.random()*100+"vw";
@@ -17,9 +17,8 @@
     }
   }
   btn.addEventListener("click",()=>{
-    on=!on;
-    btn.textContent=on?"✨ Fun On":"✨ Fun";
-    if(on){burst();timer=setInterval(burst,8000);}
-    else{clearInterval(timer);document.querySelectorAll(".confetti").forEach(el=>el.remove());}
+    on=!on; btn.textContent=on?"✨ Fun On":"✨ Fun";
+    if(on){ burst(); timer=setInterval(burst,8000); }
+    else{ clearInterval(timer); document.querySelectorAll(".confetti").forEach(el=>el.remove()); }
   });
 })();
