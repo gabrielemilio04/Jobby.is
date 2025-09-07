@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <form id="profile-form" style="margin-top:16px;">
+      <form id="profile-form" style="margin-top:16px;max-width:520px;">
         <label>
           Display name
           <input type="text" id="displayName" placeholder="Your name" required />
@@ -44,6 +44,22 @@
           Description
           <textarea id="description" placeholder="Write something about yourself…" rows="3"></textarea>
         </label>
+
+        <label style="margin-top:8px;display:block;">
+          Age
+          <input type="number" id="age" min="13" max="120" placeholder="Your age" />
+        </label>
+
+        <label style="margin-top:8px;display:block;">
+          Phone number
+          <input type="tel" id="phone" placeholder="+354 555 5555" />
+        </label>
+
+        <fieldset style="margin-top:8px;">
+          <legend>Gender</legend>
+          <label><input type="radio" name="gender" value="male" /> Male</label>
+          <label style="margin-left:12px;"><input type="radio" name="gender" value="female" /> Female</label>
+        </fieldset>
 
         <label style="margin-top:8px;display:block;">
           Profile photo
@@ -71,5 +87,4 @@
   <script src="profile.js"></script>
 </body>
 </html>
-
 
