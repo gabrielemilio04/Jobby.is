@@ -1,185 +1,113 @@
-// script.js — Firestore-backed Jobs (compat SDK)
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jobby</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- background decorative orbs -->
+  <div class="bg-orb orb-a"></div>
+  <div class="bg-orb orb-b"></div>
+  <div class="bg-orb orb-c"></div>
 
-const auth = firebase.auth();
-const db = firebase.firestore();
+  <header class="wrap header">
+    <h1 class="logo">Jobby</h1>
+    <nav class="nav">
+      <a href="#browse">Browse Jobs</a>
+      <a href="#post">Post a Job</a>
+      <a href="#my">My Jobs</a>
+      <a href="auth.html" id="nav-login">Login</a>
+      <a href="profile.html" id="nav-profile" style="display:none;">Profile</a>
+      <a href="#" id="nav-logout" style="display:none;">Logout</a>
+      <button id="fun-toggle" class="btn ghost" aria-pressed="false">✨ Fun</button>
+    </nav>
+  </header>
 
-// UI refs
-const list = document.getElementById("job-list");
-const mine = document.getElementById("my-jobs");
-const form = document.getElementById("post-form");
-const formError = document.getElementById("form-error");
-
-// Util
-function showFormError(msg) {
-  if (formError) formError.textContent = msg || "";
-}
-function isk(n) {
-  try { return new Intl.NumberFormat("is-IS", { style: "currency", currency: "ISK", maximumFractionDigits: 0 }).format(n); }
-  catch { return `${n} ISK`; }
-}
-function dateStr(ts) {
-  if (!ts) return "—";
-  const d = ts.toDate ? ts.toDate() : new Date(ts);
-  return d.toLocaleString();
-}
-
-// Render one job card
-function jobCard(job, currentUid) {
-  const owner = job.ownerName || "Unknown";
-  const status = job.status || "open";
-  const controls = [];
-
-  if (currentUid && currentUid !== job.ownerId && status === "open") {
-    controls.push(`<button data-make-offer="${job.id}">Make Offer (5% fee)</button>`);
-  }
-  if (currentUid && currentUid === job.ownerId) {
-    if (status === "open") {
-      controls.push(`<button data-complete="${job.id}">Mark Done</button>`);
-    }
-    controls.push(`<button data-delete="${job.id}" class="danger">Delete</button>`);
-  }
-
-  return `
-    <div class="card" data-job-id="${job.id}">
-      <div style="display:flex;justify-content:space-between;gap:12px;">
-        <div>
-          <b>${job.title}</b> — ${isk(job.price)}
-          <div style="font-size:12px;color:#666;">
-            by ${owner} • ${dateStr(job.createdAt)} • <i>${status}</i>
-          </div>
-          <p>${(job.details || "").replace(/\n/g, "<br>")}</p>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;">
-          ${controls.join("")}
+  <main>
+    <!-- hero -->
+    <section class="hero wrap">
+      <div class="hero-text">
+        <h2>Find help fast or earn extra cash</h2>
+        <p>Post tasks, hire helpers, and get things done — quick & easy.</p>
+        <div class="hero-actions">
+          <a href="#post" class="btn">Post a Job</a>
+          <a href="#browse" class="btn ghost">Browse</a>
         </div>
       </div>
-    </div>
-  `;
-}
 
-// Global listeners we can detach on auth change
-let browseUnsub = null;
-let mineUnsub = null;
+      <!-- animated svg characters -->
+      <div class="scene">
+        <svg class="walker babysitter" viewBox="0 0 80 80" width="88" height="88">
+          <circle cx="40" cy="20" r="10" class="skin"/>
+          <rect x="30" y="30" width="20" height="22" rx="6" class="shirt"/>
+          <rect x="22" y="30" width="8" height="18" rx="4" class="skin"/>
+          <rect x="50" y="30" width="8" height="18" rx="4" class="skin"/>
+          <rect x="31" y="52" width="7" height="18" rx="4" class="pants leg leg-l"/>
+          <rect x="42" y="52" width="7" height="18" rx="4" class="pants leg leg-r"/>
+          <circle cx="63" cy="60" r="6" class="wheel"/>
+          <circle cx="73" cy="60" r="6" class="wheel"/>
+          <path d="M56 50 h18 a8 8 0 0 0 -8 -8 h-10" class="stroller"/>
+        </svg>
 
-// Start real-time listeners for job lists
-function startListeners(currentUid) {
-  // All jobs
-  if (browseUnsub) browseUnsub();
-  browseUnsub = db.collection("jobs").orderBy("createdAt", "desc")
-    .onSnapshot((snap) => {
-      const jobs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      list.innerHTML = jobs.map(j => jobCard(j, currentUid)).join("") || "<p>No jobs yet.</p>";
-    }, (err) => {
-      console.error(err);
-      list.innerHTML = `<p class="error">Failed to load jobs: ${err.message}</p>`;
-    });
+        <svg class="walker cleaner" viewBox="0 0 80 80" width="88" height="88">
+          <circle cx="40" cy="20" r="10" class="skin"/>
+          <rect x="30" y="30" width="20" height="22" rx="6" class="shirt2"/>
+          <rect x="22" y="30" width="8" height="18" rx="4" class="skin"/>
+          <rect x="50" y="30" width="8" height="18" rx="4" class="skin"/>
+          <rect x="31" y="52" width="7" height="18" rx="4" class="pants2 leg leg-l"/>
+          <rect x="42" y="52" width="7" height="18" rx="4" class="pants2 leg leg-r"/>
+          <rect x="58" y="32" width="3" height="36" rx="2" class="mop-stick"/>
+          <rect x="56" y="66" width="10" height="5" rx="3" class="mop-head"/>
+        </svg>
 
-  // My jobs (only when logged in)
-  if (mineUnsub) { mineUnsub(); mine.innerHTML = ""; }
-  if (currentUid) {
-    mineUnsub = db.collection("jobs").where("ownerId", "==", currentUid).orderBy("createdAt", "desc")
-      .onSnapshot((snap) => {
-        const jobs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-        mine.innerHTML = jobs.map(j => `<li>${j.title} — ${isk(j.price)} (${j.status || "open"})</li>`).join("") || "<li>No jobs yet.</li>";
-      }, (err) => {
-        console.error(err);
-        mine.innerHTML = `<li class="error">Failed to load your jobs: ${err.message}</li>`;
-      });
-  }
-}
+        <svg class="walker mover" viewBox="0 0 80 80" width="88" height="88">
+          <circle cx="40" cy="20" r="10" class="skin"/>
+          <rect x="30" y="30" width="20" height="22" rx="6" class="shirt3"/>
+          <rect x="22" y="30" width="8" height="18" rx="4" class="skin"/>
+          <rect x="50" y="30" width="8" height="18" rx="4" class="skin"/>
+          <rect x="31" y="52" width="7" height="18" rx="4" class="pants3 leg leg-l"/>
+          <rect x="42" y="52" width="7" height="18" rx="4" class="pants3 leg leg-r"/>
+          <rect x="56" y="48" width="14" height="12" rx="2" class="box"/>
+          <line x1="56" y1="54" x2="70" y2="54" class="box-tape"/>
+        </svg>
+      </div>
+    </section>
 
-// Handle auth state (so we can show my-jobs and enable posting)
-auth.onAuthStateChanged(async (user) => {
-  startListeners(user ? user.uid : null);
-});
+    <section id="browse" class="wrap">
+      <h2>Browse Jobs</h2>
+      <div id="job-list"></div>
+    </section>
 
-// Create job (requires login)
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  showFormError("");
+    <section id="post" class="wrap">
+      <h2>Post a Job</h2>
+      <form id="post-form" class="card form">
+        <input name="title" placeholder="Title" required />
+        <input name="price" type="number" placeholder="Price (ISK)" required />
+        <textarea name="details" placeholder="Details"></textarea>
+        <div id="form-error" class="error"></div>
+        <button class="btn">Post</button>
+      </form>
+    </section>
 
-  const user = auth.currentUser;
-  if (!user) {
-    showFormError("Please log in to post a job.");
-    // optional redirect
-    setTimeout(() => (window.location.href = "auth.html"), 800);
-    return;
-  }
+    <section id="my" class="wrap">
+      <h2>My Jobs</h2>
+      <ul id="my-jobs" class="list"></ul>
+    </section>
+  </main>
 
-  const fd = new FormData(form);
-  const title = (fd.get("title") || "").toString().trim();
-  const price = Number(fd.get("price"));
-  const details = (fd.get("details") || "").toString().trim();
+  <footer class="wrap"><small>© Jobby</small></footer>
 
-  if (!title) return showFormError("Title is required.");
-  if (!price || price < 0) return showFormError("Enter a valid price.");
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
 
-  try {
-    // fetch owner displayName from users doc (fallback to email)
-    let ownerName = user.displayName || (user.email ? user.email.split("@")[0] : "User");
-    try {
-      const udoc = await db.collection("users").doc(user.uid).get();
-      if (udoc.exists && udoc.data().displayName) ownerName = udoc.data().displayName;
-    } catch (_) {}
-
-    await db.collection("jobs").add({
-      title,
-      price,
-      details,
-      ownerId: user.uid,
-      ownerName,
-      status: "open",
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-
-    form.reset();
-    showFormError("✅ Job posted!");
-    setTimeout(() => showFormError(""), 1200);
-  } catch (err) {
-    console.error(err);
-    showFormError("Error posting job: " + err.message);
-  }
-});
-
-// Delegated click handlers for card buttons
-document.addEventListener("click", async (e) => {
-  const t = e.target;
-  if (!(t instanceof HTMLElement)) return;
-
-  // Make Offer (demo)
-  const offerId = t.getAttribute("data-make-offer");
-  if (offerId) {
-    try {
-      const doc = await db.collection("jobs").doc(offerId).get();
-      if (doc.exists) {
-        const j = doc.data();
-        const fee = Math.round(Number(j.price || 0) * 0.05);
-        alert(`Offer sent: ${Number(j.price || 0) + fee} ISK (includes 5% fee = ${fee} ISK)`);
-      }
-    } catch (err) {
-      alert("Could not make offer: " + err.message);
-    }
-  }
-
-  // Mark Done (owner only)
-  const completeId = t.getAttribute("data-complete");
-  if (completeId) {
-    try {
-      await db.collection("jobs").doc(completeId).update({ status: "completed" });
-    } catch (err) {
-      alert("Could not mark as done: " + err.message);
-    }
-  }
-
-  // Delete (owner only)
-  const deleteId = t.getAttribute("data-delete");
-  if (deleteId) {
-    if (!confirm("Delete this job?")) return;
-    try {
-      await db.collection("jobs").doc(deleteId).delete();
-    } catch (err) {
-      alert("Could not delete: " + err.message);
-    }
-  }
-});
-
+  <script src="firebase-config.js"></script>
+  <script src="nav.js"></script>
+  <script src="fun.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
