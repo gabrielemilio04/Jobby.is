@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -13,15 +13,29 @@
   <div class="bg-orb orb-c"></div>
 
   <header class="wrap header">
-    <h1 class="logo">Jobby</h1>
+    <h1 class="logo">
+      <!-- Frog logo + wordmark -->
+      <span class="frog-logo" aria-hidden="true">🐸</span> <span>Jobby</span>
+      <span id="verified-badge" class="badge" title="Verified marketplace" data-i18n="badge_verified">Verified</span>
+    </h1>
     <nav class="nav">
-      <a href="#browse">Browse Jobs</a>
-      <a href="#post">Post a Job</a>
-      <a href="#my">My Jobs</a>
-      <a href="auth.html" id="nav-login">Login</a>
-      <a href="profile.html" id="nav-profile" style="display:none;">Profile</a>
-      <a href="#" id="nav-logout" style="display:none;">Logout</a>
-      <button id="fun-toggle" class="btn ghost" aria-pressed="false">✨ Fun</button>
+      <a href="#browse" data-i18n="nav_browse">Browse Jobs</a>
+      <a href="#post" data-i18n="nav_post">Post a Job</a>
+      <a href="#my" data-i18n="nav_my">My Jobs</a>
+
+      <span class="nav-divider"></span>
+
+      <!-- Language toggle -->
+      <button id="lang-en" class="btn ghost small" aria-pressed="true">EN</button>
+      <button id="lang-is" class="btn ghost small" aria-pressed="false">IS</button>
+
+      <span class="nav-divider"></span>
+
+      <a href="auth.html" id="nav-login" data-i18n="nav_login">Login</a>
+      <a href="profile.html" id="nav-profile" style="display:none;" data-i18n="nav_profile">Profile</a>
+      <a href="#" id="nav-logout" style="display:none;" data-i18n="nav_logout">Logout</a>
+
+      <button id="fun-toggle" class="btn ghost" aria-pressed="false">✨ <span data-i18n="fun">Fun</span></button>
     </nav>
   </header>
 
@@ -29,12 +43,18 @@
     <!-- HERO -->
     <section class="hero wrap">
       <div class="hero-text">
-        <h2>Find help fast or earn extra cash</h2>
-        <p>Post tasks, hire helpers, and get things done — quick & easy.</p>
+        <h2 data-i18n="hero_title">Find help fast or earn extra cash</h2>
+        <p data-i18n="hero_sub">Post tasks, hire helpers, and get things done — quick & easy.</p>
         <div class="hero-actions">
-          <a href="#post" class="btn">Post a Job</a>
-          <a href="#browse" class="btn ghost">Browse</a>
+          <a href="#post" class="btn" data-i18n="cta_post">Post a Job</a>
+          <a href="#browse" class="btn ghost" data-i18n="cta_browse">Browse</a>
         </div>
+        <ul class="trust-points">
+          <li>⭐ <span data-i18n="trust_ratings">Ratings & reviews</span></li>
+          <li>🛡️ <span data-i18n="trust_verified">Verified profiles</span></li>
+          <li>💬 <span data-i18n="trust_chat">Built-in chat</span></li>
+          <li>🇮🇸🇬🇧 <span data-i18n="trust_bilingual">Íslenska & English</span></li>
+        </ul>
       </div>
 
       <!-- animated SVG characters -->
@@ -77,30 +97,33 @@
 
     <!-- BROWSE -->
     <section id="browse" class="wrap">
-      <h2>Browse Jobs</h2>
+      <h2 data-i18n="browse_title">Browse Jobs</h2>
       <div id="job-list"></div>
     </section>
 
     <!-- POST -->
     <section id="post" class="wrap">
-      <h2>Post a Job</h2>
+      <h2 data-i18n="post_title">Post a Job</h2>
       <form id="post-form" class="card form">
-        <input name="title" placeholder="Title (e.g., 'Babysitting tonight')" required />
-        <input name="price" type="number" placeholder="Price (ISK)" required />
+        <input name="title" placeholder="Title (e.g., 'Babysitting tonight')" required data-i18n-ph="post_title_ph"/>
+        <input name="price" type="number" placeholder="Price (ISK)" required data-i18n-ph="post_price_ph"/>
         <textarea name="details" placeholder="Details (when, where, how long)"></textarea>
         <div id="form-error" class="error"></div>
-        <button class="btn">Post</button>
+        <button class="btn" data-i18n="post_btn">Post</button>
       </form>
     </section>
 
     <!-- MY JOBS -->
     <section id="my" class="wrap">
-      <h2>My Jobs</h2>
+      <h2 data-i18n="my_title">My Jobs</h2>
       <ul id="my-jobs" class="list"></ul>
     </section>
   </main>
 
-  <footer class="wrap"><small>© Jobby</small></footer>
+  <footer class="wrap small-muted">
+    <img src="frog-logo.svg" alt="Jobby frog logo" class="footer-frog" />
+    <small>© Jobby</small>
+  </footer>
 
   <!-- Firebase SDKs (compat builds) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -112,6 +135,8 @@
   <script src="firebase-config.js"></script>
   <script src="nav.js"></script>
   <script src="fun.js"></script>
+  <script src="lang.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
+
