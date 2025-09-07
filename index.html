@@ -13,7 +13,9 @@
       <a href="#browse">Browse Jobs</a>
       <a href="#post">Post a Job</a>
       <a href="#my">My Jobs</a>
-      <a href="auth.html">Login</a>
+      <a href="auth.html" id="nav-login">Login</a>
+      <a href="profile.html" id="nav-profile" style="display:none;">Profile</a>
+      <a href="#" id="nav-logout" style="display:none;">Logout</a>
     </nav>
   </header>
 
@@ -48,15 +50,17 @@
 
   <footer class="wrap"><small>© Jobby</small></footer>
 
-  <!-- Firebase SDKs -->
   <!-- Firebase SDKs (compat builds) -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
 
-  <!-- Your Firebase config -->
+  <!-- Your Firebase config (initializes Firebase) -->
   <script src="firebase-config.js"></script>
+
+  <!-- Auth-aware nav -->
+  <script src="nav.js"></script>
 
   <!-- Your site logic -->
   <script src="script.js"></script>
