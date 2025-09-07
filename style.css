@@ -1,13 +1,100 @@
+/* ========== Base ========== */
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:system-ui,Arial,sans-serif;line-height:1.5}
-.wrap{max-width:1000px;margin:0 auto;padding:1rem}
-header{position:sticky;top:0;z-index:10;background:#fff;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eee}
-nav a{margin-left:1rem;text-decoration:none;color:inherit}
-section{padding:2rem 0;border-bottom:1px solid #f2f2f2}
-.hero{text-align:center;padding:4rem 1rem}
-.hero .btn{display:inline-block;margin-top:1rem;padding:0.75rem 1.5rem;background:#007bff;color:#fff;border-radius:4px;text-decoration:none}
-input,textarea,button{display:block;width:100%;margin:0.5rem 0;padding:0.75rem}
-.error{color:red;margin:0.5rem 0}
-#job-list .card{border:1px solid #eee;padding:0.75rem;border-radius:8px;margin:0.5rem 0}
-@media(min-width:600px){.hero{padding:6rem 1rem}}
+:root{
+  --bg:#0f1117;
+  --text:#fafafa;
+  --muted:#b6b8c0;
+  --accent:#7cfcf1;
+  --accent-2:#8b5cf6;
+  --card:#151826;
+  --border:rgba(255,255,255,0.08);
+  --danger:#ef4444;
+}
+html,body{height:100%}
+body{
+  margin:0; font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Arial;
+  color:var(--text); background:radial-gradient(1200px 600px at 0% 0%, #1a1f2f 0%, #0f1117 50%);
+  overflow-x:hidden;
+}
+.wrap{max-width:1000px; margin:auto; padding:16px}
+
+/* Header */
+.header{position:sticky; top:0; backdrop-filter:blur(8px); background:rgba(15,17,23,0.6); border-bottom:1px solid var(--border); z-index:10}
+.logo{margin:0; font-size:28px; letter-spacing:0.5px}
+.nav{display:flex; flex-wrap:wrap; gap:12px; align-items:center}
+.nav a{color:var(--text); text-decoration:none; opacity:.9}
+.nav a:hover{opacity:1; text-decoration:underline}
+
+/* Buttons */
+.btn{appearance:none; border:1px solid var(--border); background:linear-gradient(180deg, #2a2f45, #22263a); color:var(--text); padding:10px 14px; border-radius:12px; cursor:pointer; transition:.2s; box-shadow:0 8px 20px rgba(0,0,0,.25)}
+.btn:hover{transform:translateY(-1px)}
+.btn.ghost{background:transparent}
+
+/* Cards & lists */
+.card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:14px; box-shadow:0 10px 30px rgba(0,0,0,.25); margin:8px 0}
+.list{padding-left:18px}
+.error{color:var(--danger); margin:6px 0}
+
+/* Hero */
+.hero{display:grid; grid-template-columns:1.1fr .9fr; gap:16px; align-items:center; min-height:320px}
+.hero-text h2{font-size:34px; margin:.2em 0}
+.hero-text p{color:var(--muted); margin:0 0 12px}
+.hero-actions{display:flex; gap:10px}
+
+/* Background decorative orbs */
+.bg-orb{position:fixed; filter:blur(36px); opacity:.5; z-index:-1; pointer-events:none}
+.orb-a{width:400px;height:400px; left:-120px; top:-120px; background:radial-gradient(circle, #8b5cf6, transparent 60%)}
+.orb-b{width:360px;height:360px; right:-120px; top:120px; background:radial-gradient(circle, #34d399, transparent 60%)}
+.orb-c{width:320px;height:320px; left:40%; bottom:-160px; background:radial-gradient(circle, #60a5fa, transparent 60%)}
+
+/* Scene walkers */
+.scene{position:relative; height:180px; overflow:visible}
+.walker{position:absolute; bottom:0; animation:walkAcross 18s linear infinite; }
+.walker:nth-child(2){animation-duration:22s; animation-delay:2s}
+.walker:nth-child(3){animation-duration:26s; animation-delay:4s}
+
+@keyframes walkAcross{
+  0%{transform:translateX(-120px)}
+  50%{transform:translateX(40vw)}
+  100%{transform:translateX(110vw)}
+}
+/* leg wiggle */
+.leg{transform-origin:50% 10%; animation:leg 0.9s ease-in-out infinite}
+.leg-r{animation-delay:.45s}
+@keyframes leg{
+  0%,100%{transform:rotate(0deg)}
+  50%{transform:rotate(14deg)}
+}
+
+/* SVG colors */
+.skin{fill:#f9d6b8}
+.shirt{fill:#f472b6}
+.shirt2{fill:#60a5fa}
+.shirt3{fill:#34d399}
+.pants{fill:#1f2937}
+.pants2{fill:#0ea5e9}
+.pants3{fill:#047857}
+.wheel{fill:#94a3b8}
+.stroller{stroke:#94a3b8; fill:none; stroke-width:2}
+.mop-stick{fill:#a78bfa}
+.mop-head{fill:#e5e7eb}
+.box{fill:#fbbf24}
+.box-tape{stroke:#92400e; stroke-width:2}
+
+/* Forms */
+.form input, .form textarea{
+  width:100%; padding:12px; border-radius:12px; border:1px solid var(--border);
+  background:#0b0e18; color:var(--text); outline:none; margin:6px 0;
+}
+.form textarea{min-height:110px}
+
+/* Job list card buttons */
+.card button{border:1px solid var(--border); background:#0b0e18; color:var(--text); padding:8px 10px; border-radius:10px; cursor:pointer}
+.card button:hover{transform:translateY(-1px)}
+button.danger{border-color:rgba(239,68,68,.5); color:#fecaca}
+
+/* Small screens */
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .scene{height:140px}
+}
