@@ -29,7 +29,6 @@ auth.onAuthStateChanged(async (user) => {
   emailEl.textContent = user.email || "";
   uidEl.textContent = user.uid;
 
-  // Load user doc
   const userRef = db.collection("users").doc(user.uid);
   const snap = await userRef.get();
   const data = snap.exists ? snap.data() : {};
@@ -39,7 +38,6 @@ auth.onAuthStateChanged(async (user) => {
   document.getElementById("avgRating").textContent = (data.avgRating ?? "—");
   document.getElementById("ratingCount").textContent = (data.ratingCount ?? 0);
 
-  // Save handler
   document.getElementById("profile-form").addEventListener("submit", async (e) => {
     e.preventDefault();
     show("Saving…");
@@ -47,7 +45,6 @@ auth.onAuthStateChanged(async (user) => {
     try {
       let photoURL = data.photoURL || user.photoURL || null;
 
-      // Upload avatar if a file is selected
       const file = fileInput.files && fileInput.files[0];
       if (file) {
         const safeName = `${Date.now()}-${file.name}`;
@@ -59,19 +56,16 @@ auth.onAuthStateChanged(async (user) => {
 
       const displayName = nameInput.value.trim();
 
-      // Update auth profile
       await user.updateProfile({ displayName, photoURL });
 
-      // Update Firestore user doc
       await userRef.set(
         {
+          email: user.email,
           displayName,
           photoURL: photoURL || null,
           updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-          // keep ratings if they exist; only set defaults when missing
           avgRating: data.avgRating ?? 0,
-          ratingCount: data.ratingCount ?? 0,
-          email: user.email
+          ratingCount: data.ratingCount ?? 0
         },
         { merge: true }
       );
