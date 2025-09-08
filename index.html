@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-lang="en">
+<html lang="is" data-lang="is">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -16,26 +16,26 @@
     <h1 class="logo">
       <!-- Frog logo + wordmark -->
       <span class="frog-logo" aria-hidden="true">🐸</span> <span>Jobby</span>
-      <span id="verified-badge" class="badge" title="Verified marketplace" data-i18n="badge_verified">Verified</span>
+      <span id="verified-badge" class="badge" title="Verified marketplace" data-i18n="badge_verified">Staðfest</span>
     </h1>
     <nav class="nav">
-      <a href="#browse" data-i18n="nav_browse">Browse Jobs</a>
-      <a href="#post" data-i18n="nav_post">Post a Job</a>
-      <a href="#my" data-i18n="nav_my">My Jobs</a>
+      <a href="#browse" data-i18n="nav_browse">Skoða verk</a>
+      <a href="#post" data-i18n="nav_post">Skrá verk</a>
+      <a href="#my" data-i18n="nav_my">Mín verk</a>
 
       <span class="nav-divider"></span>
 
       <!-- Language toggle -->
-      <button id="lang-en" class="btn ghost small" aria-pressed="true">EN</button>
-      <button id="lang-is" class="btn ghost small" aria-pressed="false">IS</button>
+      <button id="lang-en" class="btn ghost small" aria-pressed="false">EN</button>
+      <button id="lang-is" class="btn ghost small" aria-pressed="true">IS</button>
 
       <span class="nav-divider"></span>
 
-      <a href="auth.html" id="nav-login" data-i18n="nav_login">Login</a>
-      <a href="profile.html" id="nav-profile" style="display:none;" data-i18n="nav_profile">Profile</a>
-      <a href="#" id="nav-logout" style="display:none;" data-i18n="nav_logout">Logout</a>
+      <a href="auth.html" id="nav-login" data-i18n="nav_login">Innskrá</a>
+      <a href="profile.html" id="nav-profile" style="display:none;" data-i18n="nav_profile">Prófíll</a>
+      <a href="#" id="nav-logout" style="display:none;" data-i18n="nav_logout">Útskrá</a>
 
-      <button id="fun-toggle" class="btn ghost" aria-pressed="false">✨ <span data-i18n="fun">Fun</span></button>
+      <button id="fun-toggle" class="btn ghost" aria-pressed="false">✨ <span data-i18n="fun">Gaman</span></button>
     </nav>
   </header>
 
@@ -43,17 +43,17 @@
     <!-- HERO -->
     <section class="hero wrap">
       <div class="hero-text">
-        <h2 data-i18n="hero_title">Find help fast or earn extra cash</h2>
-        <p data-i18n="hero_sub">Post tasks, hire helpers, and get things done — quick & easy.</p>
+        <h2 data-i18n="hero_title">Finndu hjálp hratt eða þénstu aukapening</h2>
+        <p data-i18n="hero_sub">Skráðu verk, finndu aðstoð og kláraðu þau – einfalt og hratt.</p>
         <div class="hero-actions">
-          <a href="#post" class="btn" data-i18n="cta_post">Post a Job</a>
-          <a href="#browse" class="btn ghost" data-i18n="cta_browse">Browse</a>
+          <a href="#post" class="btn" data-i18n="cta_post">Skrá verk</a>
+          <a href="#browse" class="btn ghost" data-i18n="cta_browse">Skoða</a>
         </div>
         <ul class="trust-points">
-          <li>⭐ <span data-i18n="trust_ratings">Ratings & reviews</span></li>
-          <li>🛡️ <span data-i18n="trust_verified">Verified profiles</span></li>
-          <li>💬 <span data-i18n="trust_chat">Built-in chat</span></li>
-          <li>🇮🇸🇬🇧 <span data-i18n="trust_bilingual">Íslenska & English</span></li>
+          <li>⭐ <span data-i18n="trust_ratings">Einkunnir og umsagnir</span></li>
+          <li>🛡️ <span data-i18n="trust_verified">Staðfestir prófílar</span></li>
+          <li>💬 <span data-i18n="trust_chat">Innbyggt spjall</span></li>
+          <li>🇮🇸🇬🇧 <span data-i18n="trust_bilingual">Íslenska & enska</span></li>
         </ul>
       </div>
 
@@ -97,25 +97,25 @@
 
     <!-- BROWSE -->
     <section id="browse" class="wrap">
-      <h2 data-i18n="browse_title">Browse Jobs</h2>
+      <h2 data-i18n="browse_title">Verk í boði</h2>
       <div id="job-list"></div>
     </section>
 
     <!-- POST -->
     <section id="post" class="wrap">
-      <h2 data-i18n="post_title">Post a Job</h2>
+      <h2 data-i18n="post_title">Skrá verk</h2>
       <form id="post-form" class="card form">
-        <input name="title" placeholder="Title (e.g., 'Babysitting tonight')" required data-i18n-ph="post_title_ph"/>
-        <input name="price" type="number" placeholder="Price (ISK)" required data-i18n-ph="post_price_ph"/>
-        <textarea name="details" placeholder="Details (when, where, how long)"></textarea>
+        <input name="title" placeholder="Titill (t.d. „Barnapössun í kvöld“)" required data-i18n-ph="post_title_ph"/>
+        <input name="price" type="number" placeholder="Verð (ISK)" required data-i18n-ph="post_price_ph"/>
+        <textarea name="details" placeholder="Lýsing (hvenær, hvar, hve lengi)" data-i18n-ph="post_details_ph"></textarea>
         <div id="form-error" class="error"></div>
-        <button class="btn" data-i18n="post_btn">Post</button>
+        <button class="btn" data-i18n="post_btn">Birta</button>
       </form>
     </section>
 
     <!-- MY JOBS -->
     <section id="my" class="wrap">
-      <h2 data-i18n="my_title">My Jobs</h2>
+      <h2 data-i18n="my_title">Mín verk</h2>
       <ul id="my-jobs" class="list"></ul>
     </section>
   </main>
