@@ -21,6 +21,7 @@ const I18N = {
     post_title: "Post a Job",
     post_title_ph: "Title (e.g., 'Babysitting tonight')",
     post_price_ph: "Price (ISK)",
+    post_details_ph: "Details (when, where, how long)",
     post_btn: "Post",
     my_title: "My Jobs",
     open: "open",
@@ -37,36 +38,37 @@ const I18N = {
   is: {
     badge_verified: "Staðfest",
     nav_browse: "Skoða verk",
-    nav_post: "Bæta við verki",
+    nav_post: "Skrá verk",
     nav_my: "Mín verk",
-    nav_login: "Innskráning",
+    nav_login: "Innskrá",
     nav_profile: "Prófíll",
     nav_logout: "Útskrá",
     fun: "Gaman",
-    hero_title: "Finndu hjálp fljótt eða þénastu aukalega",
-    hero_sub: "Settu inn verk, ráðu aðstoð og kláraðu — einfalt og hratt.",
+    hero_title: "Finndu hjálp hratt eða þénstu aukapening",
+    hero_sub: "Skráðu verk, finndu aðstoð og kláraðu þau – einfalt og hratt.",
     trust_ratings: "Einkunnir og umsagnir",
     trust_verified: "Staðfestir prófílar",
     trust_chat: "Innbyggt spjall",
-    trust_bilingual: "Íslenska & Enska",
-    cta_post: "Bæta við verki",
+    trust_bilingual: "Íslenska & enska",
+    cta_post: "Skrá verk",
     cta_browse: "Skoða",
-    browse_title: "Skoða verk",
-    post_title: "Bæta við verki",
+    browse_title: "Verk í boði",
+    post_title: "Skrá verk",
     post_title_ph: "Titill (t.d. „Barnapössun í kvöld“)",
     post_price_ph: "Verð (ISK)",
-    post_btn: "Vista",
+    post_details_ph: "Lýsing (hvenær, hvar, hve lengi)",
+    post_btn: "Birta",
     my_title: "Mín verk",
     open: "opið",
     completed: "lokið",
     chat_with_owner: "Senda skilaboð",
-    make_offer: "Senda tilboð (5% gjald)",
-    mark_done: "Merkja lokið",
+    make_offer: "Gera tilboð (5% gjald)",
+    mark_done: "Merkja sem lokið",
     delete: "Eyða",
     rate_helper: "Gefa einkunn",
     send: "Senda",
     message_ph: "Skrifaðu skilaboð…",
-    rated_ok: "Takk! Einkunn vistuð."
+    rated_ok: "Takk! Einkunnin var vistuð."
   }
 };
 
@@ -74,7 +76,7 @@ const I18N = {
   const root = document.documentElement;
   const btnEN = document.getElementById("lang-en");
   const btnIS = document.getElementById("lang-is");
-  const stored = localStorage.getItem("lang") || "en";
+  const stored = localStorage.getItem("lang") || "is";
   setLang(stored);
   btnEN?.addEventListener("click",()=> setLang("en"));
   btnIS?.addEventListener("click",()=> setLang("is"));
